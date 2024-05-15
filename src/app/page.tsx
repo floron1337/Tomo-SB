@@ -1,9 +1,10 @@
-import Image from "next/image";
-
+import TextPost from "./myComponents/TextPost";
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>test</h1>
+    <main className="flex h-screen w-screen">
+      <div className="flex flex-row justify-center p-24 h-screen w-screen bg-background">
+        <TextPost></TextPost>
+      </div>
     </main>
   );
 }
