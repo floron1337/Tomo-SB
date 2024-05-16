@@ -1,23 +1,33 @@
 import React from "react";
 import Image from "next/image";
 import next from "next";
-import { UsersRound } from "lucide-react";
+import { Send, UsersRound } from "lucide-react";
+import Link from "next/link";
 
-const FriendListItem = () => {
+type Props = {
+  username: string;
+  userImg: string;
+};
+
+const FriendListItem = ({ username, userImg }: Props) => {
   return (
-    <div className=" flex flex-row size-full text-white px-3 py-6">
-      <Image
-        width={30}
-        height={30}
-        alt=""
-        src={"/download 1.png"}
-        className="rounded-full"
-      />
-      <h6 className="flex text-white text-opacity-65 mt-1">Florin</h6>
-      <div className="flex flex-row p-1 gap-1">
-        <UsersRound className="size-4 text-secondary" />
-        <p className="text-white text-xs text-opacity-30">0</p>
+    <div className="mb-1 flex flex-row justify-between gap-1 w-full border-t-[1px] border-secondary border-opacity-30 p-2 text-white">
+      <div className="w-full gap-2  inline-flex">
+        <Image
+          width={50}
+          height={50}
+          alt=""
+          src={userImg}
+          className="rounded-full self-start flex"
+        />
+        <h4 className="flex text-white text-xl  my-auto">{username}</h4>
       </div>
+      <Link
+        href={"/chat/user_2gVzlNBVjgwPHvH8X07vrRzhivx"}
+        className="flex  size-5 justify-center  my-auto"
+      >
+        <Send />
+      </Link>
     </div>
   );
 };
