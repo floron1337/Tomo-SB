@@ -25,7 +25,7 @@ const ImagePost = ({
   description,
 }: ImagePost) => {
   return (
-    <div className="flex flex-col items-center gap-2 w-2/3 max-w-[46rem] min-w-96 h-auto bg-foreground pr-4 pl-1 py-4 rounded-2xl">
+    <div className="flex flex-col items-center gap-2 w-full max-w-[46rem] min-w-96 h-auto bg-foreground pr-4 pl-1 py-4 rounded-2xl">
       <div className="w-full h-full flex flex-row gap-1 ml-1">
         <div className="flex size-16 bg-sky-400 rounded-full"></div>
         <div className="flex flex-col ml-2">
@@ -40,8 +40,8 @@ const ImagePost = ({
       </div>
       <Image
         src={photo}
-        width={500}
-        height={500}
+        width={550}
+        height={50}
         alt="Picture of the author"
         className="flex p-2 items-center"
       />
