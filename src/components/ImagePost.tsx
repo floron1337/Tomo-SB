@@ -3,32 +3,33 @@ import React from "react";
 import Image from "next/image";
 
 interface ImagePost {
-  user: string;
-  photo: string;
-  title: string;
+  username: string;
+  userImg: string;
+  title:string;
+  imageUrl:string;
   description: string;
   likes: number;
   friends: number;
-
   comments: number;
 }
 
 const ImagePost = ({
-  user,
+  username,
+  userImg,
+  title,
+  imageUrl,
+  description,
   likes,
   friends,
-  photo,
   comments,
-  title,
-  description,
 }: ImagePost) => {
   return (
     <div className="flex flex-col items-center gap-2 w-full max-w-[46rem] min-w-96 h-auto bg-foreground pr-4 pl-1 py-4 rounded-2xl">
-      <div className="w-full h-full flex flex-row gap-1 ml-1">
-        <div className="flex size-16 bg-sky-400 rounded-full"></div>
+      <div className="w-full h-auto flex flex-row gap-1 ml-1">
+        <Image width={60} height={60} alt="" src={userImg} className='rounded-full'/>
         <div className="flex flex-col ml-2">
           <h6 className="flex text-white text-opacity-65 mt-3 text-2xl">
-            @{user}
+            @{username}
           </h6>
           <div className="flex flex-row pl-1 gap-1">
             <UsersRound className="size-4 text-secondary" />
@@ -37,9 +38,9 @@ const ImagePost = ({
         </div>
       </div>
       <Image
-        src={photo}
-        width={550}
-        height={50}
+        src={imageUrl}
+        width={200}
+        height={160}
         alt="Picture of the author"
         className="flex p-2 items-center"
       />

@@ -14,14 +14,15 @@ import { postTypeEnum, posts } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import UserPost from "@/components/UserPost";
 import Feed from "@/components/Feed";
+import CreatePost from "@/components/CreatePost";
 
 export default function Home() {
   return (
     <>
       <SignedIn>
         <main className="h-auto overflow-x-hidden">
-          <div className="position absolute w-screen h-10 bg-[#08171b] text-white font-bold p-2">
-            Tomo
+          <div className="position absolute w-screen h-14 flex flex-col justify-center bg-[#08171b] text-white font-bold p-2">
+            <h1 className='ml-4'>Tomo</h1>
           </div>
 
           <div className="flex flex-row items-start h-screen w-screen overflow-hidden">
@@ -34,8 +35,9 @@ export default function Home() {
             </div>
             
                */}
-            <div className="flex flex-col justify-center size-full basis-1/3 bg-green-600">
+            <div className="flex flex-col justify-center size-full basis-1/3">
               <div className="flex flex-col items-center m-auto w-3/4 h-3/4 bg-foreground pr-4 pl-1 py-4 rounded-xl">
+                
                 <div className="flex size-16 bg-sky-400 rounded-full"></div>
                 <h6 className="flex text-white text-opacity-65 mt-1 text-xl">
                   @Koshmi
@@ -61,7 +63,7 @@ export default function Home() {
             {/*<div className="h-auto">
               <UserButton />
               </div>*/}
-            <div className=" size-full basis-1/3 bg-green-600"></div>
+            <div className=" size-full basis-1/3"></div>
           </div>
         </main>
       </SignedIn>

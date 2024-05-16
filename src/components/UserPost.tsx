@@ -2,17 +2,21 @@ import { Post, postTypeEnum } from '@/lib/db/schema'
 import React from 'react'
 import TextPost from './TextPost'
 import ImagePost from './ImagePost'
+import { clerkClient, currentUser } from '@clerk/nextjs/server'
 
 type Props = {
     post: Post
 }
 
-const UserPost = ({post} : Props) => {
+const UserPost = async ({post} : Props) => {
+    const user = await clerkClient.users.getUser(post.userId)
     return (
         <>
             {post.postType === 'text' && 
             <TextPost 
-                user={post.creator}
+                username={user.fullName!}
+                userImg={user.imageUrl}
+                title={post.title}
                 description={post.description}
                 likes={post.likes}
                 friends={0}
@@ -22,9 +26,10 @@ const UserPost = ({post} : Props) => {
             {
                 post.postType === 'image' && 
                 <ImagePost
-                    user={post.creator}
+                    username={user.fullName!}
+                    userImg={user.imageUrl}
                     title={post.title}
-                    photo={"/yosemite.png"}
+                    imageUrl={post.fileUrl}
                     description={post.description}
                     likes={post.likes}
                     friends={0}
