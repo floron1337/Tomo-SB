@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { posts } from "@/lib/db/schema";
+import { friends, posts } from "@/lib/db/schema";
 import { getS3Url } from "@/lib/s3";
 import { useClerk } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
@@ -12,16 +12,11 @@ export async function POST(req: Request, res: Response){
     }
     try{
         const body = await req.json()
-        const {title, description, file_key, postType} = body
+        const {userId, friendId} = body
 
-        const upload = await db.insert(posts).values({
-            userId,
-            title,
-            description,
-            postType,
-            fileUrl: getS3Url(file_key),
+        const upload = await db.insert(friends).values({
+            userId, friendId
         })
-
         return NextResponse.json({message: "success"}, {status: 200})
     }
     catch(err){

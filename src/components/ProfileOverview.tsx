@@ -1,30 +1,61 @@
-import Link from "next/link";
-import React from "react";
+import { Heart, LogOut, UserRound } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
 import Image from "next/image";
+import { auth, clerkClient } from '@clerk/nextjs/server';
+import { SignOutButton } from '@clerk/nextjs';
+import { Button } from './ui/button';
 
-const ProfileOverview = () => {
-  return (
-    <div className="bg-backgound w-screen h-screen flex flex-col bg-background">
-      <div className="position absolute w-screen h-14 flex flex-col justify-center bg-[#08171b] text-white font-bold p-2">
-        <Link href={"/"} className="ml-4">
-          Tomo
-        </Link>
-      </div>
+const ProfileOverview = async () => {
+    const userId = await auth().userId
+    const user = await clerkClient.users.getUser(userId!)
+    
+    return (
+        <div className="flex flex-col justify-center size-full basis-1/3">
+            <div className="flex flex-col items-center m-auto bg-foreground px-3 py-4 rounded-xl w-3/4 h-3/4">
+                <Link href={`/users/${userId}`}>
+                    <Image
+                        width={80}
+                        height={80}
+                        alt=""
+                        src={user.imageUrl}
+                        className="rounded-full"
+                    />
+                </Link>
+                <h6 className="flex text-white text-opacity-65 mt-1 text-xl">
+                    @{user.fullName}
+                </h6>
+                <SignOutButton redirectUrl='/sign-in'>
+                    <Button className='mt-4 bg-background hover:bg-accent-foreground flex flex-row gap-2'>
+                        Sign Out <LogOut className='size-4'/>
+                    </Button>
+                </SignOutButton>
+                <ul className="text-white w-full divide-y divide-slate-700 space-y-[10px] mt-8">
+                    <li className="flex flex-row gap-1 py-2">
+                    <UserRound className="size-5" />
+                    <p className="hover:text-accent hover:cursor-pointer">
+                        Friends
+                    </p>
+                    </li>
+                    <li className="flex flex-row gap-1 py-2">
+                    <Heart className="size-5" />
+                    <p>Likes</p>
+                    </li>
+                        <li className="flex flex-col gap-1 py-2">
+                        <h3>Top Quote</h3>
+                        <div className="w-full h-[3rem] opacity-5 bg-accent">a</div>
+                    </li>
+                        <li className="flex flex-col gap-1 py-2">
+                        <h3>Top Post</h3>
+                        <div className="w-full h-[10rem] opacity-5 bg-accent">
+                            a
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    )
+}
 
-      <div className="flex flex-col bg-foreground  w-2/3 h-4/5 max-w-[30rem] m-auto rounded-3xl">
-        <Image
-          width={100}
-          height={100}
-          alt=""
-          src={"/download 1.png"}
-          className="rounded-full flex mx-auto mt-6"
-        />
-        <h6 className="flex text-white text-opacity-65 mt-1 mx-auto text-2xl">
-          @Koshm
-        </h6>
-      </div>
-    </div>
-  );
-};
-
-export default ProfileOverview;
+export default ProfileOverview

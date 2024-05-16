@@ -14,3 +14,9 @@ export const posts = pgTable("posts", {
     fileUrl: text('file_url').notNull(),
     likes: integer('likes').default(0).notNull(),
 })
+
+export const friends = pgTable("friends", {
+    id: serial("id").primaryKey(),
+    userId: varchar('user_id', {length:256}).notNull(),
+    friendId: varchar('friend_id', {length:256}).notNull(),
+})

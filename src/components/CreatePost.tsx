@@ -108,7 +108,6 @@ const CreatePost = () => {
             className="w-1/4 ml-auto mr-auto bg-secondary hover:bg-accent"
             onClick={(e) => {
               setShowCreate(true);
-              console.log(showCreate);
             }}
           >
             Create Post

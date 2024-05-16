@@ -2,7 +2,7 @@ import { Post, postTypeEnum } from '@/lib/db/schema'
 import React from 'react'
 import TextPost from './TextPost'
 import ImagePost from './ImagePost'
-import { clerkClient, currentUser } from '@clerk/nextjs/server'
+import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
 
 type Props = {
     post: Post
@@ -10,10 +10,15 @@ type Props = {
 
 const UserPost = async ({post} : Props) => {
     const user = await clerkClient.users.getUser(post.userId)
+    const currentUserId = await auth().userId
+
     return (
         <>
             {post.postType === 'text' && 
             <TextPost 
+                postId={post.id}
+                userId={post.userId}
+                currentUserId={currentUserId!}
                 username={user.fullName!}
                 userImg={user.imageUrl}
                 title={post.title}
@@ -24,17 +29,20 @@ const UserPost = async ({post} : Props) => {
             />
             }
             {
-                post.postType === 'image' && 
-                <ImagePost
-                    username={user.fullName!}
-                    userImg={user.imageUrl}
-                    title={post.title}
-                    imageUrl={post.fileUrl}
-                    description={post.description}
-                    likes={post.likes}
-                    friends={0}
-                    comments={0}
-                />
+            post.postType === 'image' && 
+            <ImagePost
+                postId={post.id}
+                userId={post.userId}
+                currentUserId={currentUserId!}
+                username={user.fullName!}
+                userImg={user.imageUrl}
+                title={post.title}
+                description={post.description}
+                likes={post.likes}
+                friends={0}
+                comments={0}
+                imageUrl={post.fileUrl}
+            />
             }
         </>
     )

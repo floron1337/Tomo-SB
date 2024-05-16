@@ -1,41 +1,79 @@
-import { Forward, Heart, MessageSquareMore, UsersRound } from "lucide-react";
-import React from "react";
+'use client'
+import { Forward, Heart, Loader2, MessageSquareMore, Trash, UsersRound } from "lucide-react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ImagePost {
+  postId: number;
+  userId:string;
+  currentUserId:string;
   username: string;
   userImg: string;
   title:string;
-  imageUrl:string;
   description: string;
   likes: number;
   friends: number;
   comments: number;
+  imageUrl: string;
 }
 
 const ImagePost = ({
+  postId,
+  userId,
+  currentUserId,
   username,
   userImg,
   title,
-  imageUrl,
   description,
   likes,
   friends,
   comments,
+  imageUrl,
 }: ImagePost) => {
+  const [loadingDelete, setLoadingDelete] = useState(false)
+  const router = useRouter();
+
+  async function deletePost(){
+    setLoadingDelete(true)
+    const creatorId = userId
+    const response = await axios.delete("/api/delete-post", {
+      data:{
+        postId,
+        creatorId
+      }
+    })
+    router.refresh()
+    setLoadingDelete(false)
+  }
+
   return (
     <div className="flex flex-col items-center gap-2 w-full max-w-[46rem] min-w-96 h-auto bg-foreground pr-4 pl-1 py-4 rounded-2xl">
-      <div className="w-full h-auto flex flex-row gap-1 ml-1">
-        <Image width={60} height={60} alt="" src={userImg} className='rounded-full'/>
-        <div className="flex flex-col ml-2">
-          <h6 className="flex text-white text-opacity-65 mt-3 text-2xl">
-            @{username}
-          </h6>
-          <div className="flex flex-row pl-1 gap-1">
-            <UsersRound className="size-4 text-secondary" />
-            <p className="text-white text-xs text-opacity-30">{friends}</p>
+      <div className="w-full h-auto flex flex-row gap-1 ml-1 items-center">
+        <Link href={`/users/${userId}`}>
+          <Image width={60} height={60} alt="" src={userImg} className='rounded-full'/>
+          <div className="flex flex-col ml-2">
+            <h6 className="flex text-white text-opacity-65 mt-3 text-2xl">
+              @{username}
+            </h6>
+            <div className="flex flex-row pl-1 gap-1">
+              <UsersRound className="size-4 text-secondary" />
+              <p className="text-white text-xs text-opacity-30">{friends}</p>
+            </div>
           </div>
-        </div>
+        </Link>
+        { currentUserId === userId &&
+          <Button className='bg-destructive hover:bg-red-600 p-2 ml-auto' onClick={deletePost} disabled={loadingDelete}>
+            {loadingDelete?
+              <Loader2/>
+              :
+              <Trash/>
+            }
+          </Button>
+        }
       </div>
       <Image
         src={imageUrl}
