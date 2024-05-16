@@ -40,25 +40,18 @@ export default function Home() {
                 <h6 className="flex text-white text-opacity-65 mt-1 text-xl">
                   @Koshmi
                 </h6>
-                <ul className="text-white space-y-4 mt-8">
-                  <li className="flex flex-row gap-1 border-solid">
+                <ul className="text-white w-full divide-y divide-slate-700 space-y-2 mt-8 p-2">
+                  <li className="flex flex-row gap-1">
+                    <UserRound className="size-5" />
                     <p className="hover:text-accent hover:cursor-pointer">
-                      <UserRound className="size-5" />
                       friends
                     </p>
                   </li>
-                  <li>
+                  <li className="flex flex-row gap-1 mt-10">
                     <UserRound className="size-5" />
-                    Home
+                    <p>Likes</p>
                   </li>
-                  <li>
-                    <UserRound className="size-5" />
-                    Settings
-                  </li>
-                  <li>
-                    <UserRound className="size-5" />
-                    logout
-                  </li>
+                  <li></li>
                 </ul>
               </div>
             </div>
