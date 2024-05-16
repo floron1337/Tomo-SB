@@ -11,7 +11,11 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.577.0",
     "@clerk/nextjs": "^5.0.10",
+    "@hookform/resolvers": "^3.4.0",
     "@neondatabase/serverless": "^0.9.3",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-menubar": "^1.0.4",
+    "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-query": "^5.36.2",
     "aws-sdk": "^2.1621.0",
     "axios": "^1.6.8",
@@ -24,10 +28,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.51.4",
     "react-hot-toast": "^2.4.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,80 +1,81 @@
 'use client'
 import { uploadToS3 } from "@/lib/s3";
 import { useMutation } from "@tanstack/react-query";
-import { Inbox, Loader2 } from "lucide-react";
-import React from "react";
+import { Inbox, Loader2, Trash } from "lucide-react";
+import React, { useState } from "react";
 import { useDropzone } from 'react-dropzone'
 import axios from 'axios'
 import toast from "react-hot-toast";
 import { useRouter } from 'next/navigation'
+import Image from "next/image";
+import { Button } from "./ui/button";
 
-const FileUpload = () => {
-    const router = useRouter()
-    const [uploading, setUploading] = React.useState(false)
+type Props = {
+    file: File | null,
+    setFile: React.Dispatch<React.SetStateAction<File | null>>
+    uploaded: boolean,
+    setUploaded: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-    const {mutate, isPending} = useMutation({
-        mutationFn: async({file_key, file_name} : { file_key:string, file_name: string}) => {
-            const response = await axios.post('/api/create-post', {file_key, file_name})
-            return response.data
-        }
-    })
+const FileUpload = ({file, setFile, uploaded, setUploaded} : Props) => {
+    const [path, setPath] = useState("")
 
     const {getRootProps, getInputProps} = useDropzone({
-        accept:{'image/*': ['.jpeg', '.png']},
+        accept: {'image/*': ['.jpeg', '.png']},
         maxFiles: 1,
         onDrop: async (acceptedFiles) => {
-            console.log(acceptedFiles);
-            const file = acceptedFiles[0]
-
-            if(file.size > 10 * 1024 * 1024){
+            if(acceptedFiles[0].size > 10 * 1024 * 1024){
                 toast.error('Please upload a smaller file!')
                 return
             }
-            try{
-                setUploading(true)
-                const data = await uploadToS3(file)
-                if(!data?.file_key || !data.file_name){
-                    toast.error("Something went wrong!")
-                    return
-                }
-                mutate(data, {
-                    onSuccess: ({chat_id}) => {
-                        toast.success("Chat created")
-                        router.push(`/chat/${chat_id}`)
-                    },
-                    onError: (err) =>{
-                        toast.error("Error creating chat!")
-                        console.error(err)
-                    }
-                })
-            }
-            catch(error){
-                console.log(error)
-            }finally{
-                setUploading(false)
-            }
+            setFile(acceptedFiles[0])
+            setPath(URL.createObjectURL(acceptedFiles[0]))
+            setUploaded(true)
         }
     })
 
     return (
-        <div className="p-2 bg-white rounded-xl">
+        <div className="border rounded-xl">
             <div {...getRootProps({
-                className: 'border-dashed-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col'
+                className: 'border-dashed-2 rounded-xl cursor-pointer bg-background py-8 flex justify-center items-center flex-col'
             })}>
+                {uploaded ? (
+                    <>
+                        <Image 
+                            src={path} 
+                            alt="your uploaded file" 
+                            width={200}
+                            height={160}
+                        />
+                    </>
+                ): (
+                    <>
+                        <Inbox className="w-8 h-8 text-white"/>
+                        <p className="mt-2 text-sm text-slate-400">Upload an image or a video.</p>
+                    </>
+                )
+                }
+
                 <input {...getInputProps()}/>
+                {
+                    /*
+                    
+                    
                 {(uploading || isPending)?(
                     <>
-                        <Loader2 className="h-10 w-10 text-blue-500 animate-spin"/>
+                        <Loader2 className="h-8 w-8 text-white animate-spin"/>
                         <p className="mt-2 text-sm text-slate-400">
                             Loading..
                         </p>
                     </>
                 ):(
                     <>
-                        <Inbox className="w-10 h-10 text-blue-500"/>
-                        <p className="mt-2 text-sm text-slate-400">Upload an image.</p>
+                        <Inbox className="w-8 h-8 text-white"/>
+                        <p className="mt-2 text-sm text-slate-400">Upload an image or a video.</p>
                     </>
                 )}
+                */ 
+            }
             </div>
         </div>
     )
