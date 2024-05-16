@@ -8,6 +8,12 @@ import Image from "next/image";
 import TextPost from "../components/TextPost";
 import ImagePost from "@/components/ImagePost";
 import { LogOut, Settings, UserRound, UsersRound } from "lucide-react";
+import FileUpload from "@/components/FileUpload";
+import { db } from "@/lib/db";
+import { postTypeEnum, posts } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import UserPost from "@/components/UserPost";
+import Feed from "@/components/Feed";
 
 export default function Home() {
   return (
@@ -35,100 +41,33 @@ export default function Home() {
                   @Koshmi
                 </h6>
                 <ul className="text-white space-y-4 mt-8">
-                  <li>
-                    <UserRound className="size-3" />
-                    <p>friends</p>
+                  <li className="flex flex-row gap-1 border-solid">
+                    <p className="hover:text-accent hover:cursor-pointer">
+                      <UserRound className="size-5" />
+                      friends
+                    </p>
                   </li>
                   <li>
-                    <UserRound className="size-3" />
+                    <UserRound className="size-5" />
                     Home
                   </li>
                   <li>
-                    <UserRound className="size-3" />
+                    <UserRound className="size-5" />
                     Settings
                   </li>
                   <li>
-                    <UserRound className="size-3" />
+                    <UserRound className="size-5" />
                     logout
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="flex flex-col basis-2/3 gap-8 justify-start items-center py-20 h-full w-auto overflow-y-scroll no-scrollbar">
-              <ImagePost
-                user={"nigger"}
-                likes={0}
-                friends={0}
-                photo={"/yosemite.png"}
-                description="Om cu nas mare mere in parc"
-                title="Intalnirea mea cu spinul"
-                content={
-                  "Cel mai mare nas pe care l am vazut in viata mea a fost atunci cand l- am intalnit pe Florin Venis"
-                }
-                comments={0}
-              ></ImagePost>
-              <TextPost
-                user={"nigger"}
-                likes={0}
-                friends={0}
-                content={
-                  "Cel mai mare nas pe care l am vazut in viata mea a fost atunci cand l- am intalnit pe Florin Venis"
-                }
-                comments={0}
-              ></TextPost>
-              <ImagePost
-                user={"nigger"}
-                likes={0}
-                friends={0}
-                photo={"/yosemite.png"}
-                description="Om cu nas mare mere in parc"
-                title="Intalnirea mea cu spinul"
-                content={
-                  "Cel mai mare nas pe care l am vazut in viata mea a fost atunci cand l- am intalnit pe Florin Venis"
-                }
-                comments={0}
-              ></ImagePost>
-              <ImagePost
-                user={"nigger"}
-                likes={0}
-                friends={0}
-                photo={"/yosemite.png"}
-                description="Om cu nas mare mere in parc"
-                title="Intalnirea mea cu spinul"
-                content={
-                  "Cel mai mare nas pe care l am vazut in viata mea a fost atunci cand l- am intalnit pe Florin Venis"
-                }
-                comments={0}
-              ></ImagePost>
-              <ImagePost
-                user={"nigger"}
-                likes={0}
-                friends={0}
-                photo={"/yosemite.png"}
-                description="Om cu nas mare mere in parc"
-                title="Intalnirea mea cu spinul"
-                content={
-                  "Cel mai mare nas pe care l am vazut in viata mea a fost atunci cand l- am intalnit pe Florin Venis"
-                }
-                comments={0}
-              ></ImagePost>
-              <ImagePost
-                user={"nigger"}
-                likes={0}
-                friends={0}
-                photo={"/yosemite.png"}
-                description="Om cu nas mare mere in parc"
-                title="Intalnirea mea cu spinul"
-                content={
-                  "Cel mai mare nas pe care l am vazut in viata mea a fost atunci cand l- am intalnit pe Florin Venis"
-                }
-                comments={0}
-              ></ImagePost>
 
-              {/*<div className="h-auto">
+            <Feed />
+
+            {/*<div className="h-auto">
               <UserButton />
               </div>*/}
-            </div>
             <div className=" size-full basis-1/3 bg-green-600"></div>
           </div>
         </main>

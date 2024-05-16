@@ -4,7 +4,6 @@ import Image from "next/image";
 
 interface ImagePost {
   user: string;
-  content: string;
   photo: string;
   title: string;
   description: string;
@@ -16,7 +15,6 @@ interface ImagePost {
 
 const ImagePost = ({
   user,
-  content,
   likes,
   friends,
   photo,
