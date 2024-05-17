@@ -3,6 +3,7 @@ import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, varchar } f
 export const postTypeEnum = pgEnum('post_type_enum', ['text', 'image', 'video'])
 
 export type Post = typeof posts.$inferSelect
+export type ChatMessage = typeof message.$inferSelect
 
 export const posts = pgTable("posts", {
     id: serial("id").primaryKey(),
@@ -24,8 +25,8 @@ export const friends = pgTable("friends", {
 
 export const chats = pgTable("chats", {
     id: serial("id").primaryKey(),
-    user1_id: varchar('user_id', {length:256}).notNull(),
-    user2_id: varchar('user_id', {length:256}).notNull()
+    user1_id: varchar('user1_id', {length:256}).notNull(),
+    user2_id: varchar('user2_id', {length:256}).notNull()
 })
 
 export const message = pgTable("message", {

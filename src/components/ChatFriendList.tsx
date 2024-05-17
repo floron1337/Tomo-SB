@@ -2,18 +2,18 @@ import React from "react";
 import FriendListItem from "./FriendListItem";
 import { Home } from "lucide-react";
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { auth, getAuth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { friends } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 
 const ChatFriendList = async () => {
-  const userId = await auth().userId;
+  const userId = await auth().userId
   const friendList = await db
     .select()
     .from(friends)
     .where(and(eq(friends.userId, userId!), eq(friends.accepted, true)));
-
+  
   return (
     <div className="flex flex-col text-white bg-foreground border-opacity-50 basis-1/3 border-r-[1px] border-y-[1px] border-secondary w-full max-w-[24rem]">
       <Link

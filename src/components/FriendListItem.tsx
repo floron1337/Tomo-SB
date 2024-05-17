@@ -4,6 +4,7 @@ import next from "next";
 import { Send, UsersRound } from "lucide-react";
 import Link from "next/link";
 import { clerkClient } from "@clerk/nextjs/server";
+import { Button } from "./ui/button";
 
 type Props = {
   friendId: string;
@@ -27,7 +28,7 @@ const FriendListItem = async ({ friendId }: Props) => {
       </div>
       <Link
         href={`/chat/${friendUser.id}`}
-        className="flex  size-5 justify-center  my-auto"
+        className="flex  size-5 justify-center my-auto"
       >
         <Send />
       </Link>

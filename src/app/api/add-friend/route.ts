@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { friends, posts } from "@/lib/db/schema";
+import { chats, friends, posts } from "@/lib/db/schema";
 import { getS3Url } from "@/lib/s3";
 import { useClerk } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
@@ -23,6 +23,11 @@ export async function POST(req: Request, res: Response){
         if(friendshipStatus.length > 0){
             await db.update(friends).set({accepted: true}).where(and(eq(friends.userId, userId), eq(friends.friendId, friendId)))
             await db.update(friends).set({accepted: true}).where(and(eq(friends.userId, friendId), eq(friends.friendId, userId)))
+            const upload = await db.insert(chats).values({
+                user1_id: userId,
+                user2_id: friendId
+            })
+            console.log(upload)
         }
 
         return NextResponse.json({message: "success"}, {status: 200})
