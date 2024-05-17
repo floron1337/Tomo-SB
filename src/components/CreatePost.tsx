@@ -66,7 +66,7 @@ const CreatePost = () => {
 
   return (
     <div
-      className="flex flex-col w-full max-w-[46rem] min-w-96 bg-foreground p-4 rounded-2xl text-white"
+      className="flex flex-col w-full max-w-[46rem] min-w-96 bg-foreground p-3 rounded-2xl text-white"
       id="create-post"
     >
       {showCreate ? (

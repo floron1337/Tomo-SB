@@ -15,37 +15,37 @@ import { and, eq, or } from "drizzle-orm";
 import { useRouter } from "next/navigation";
 
 export default async function Page({ params }: { params: { userId: string } }) {
-  const {userId} = await auth()
+  const { userId } = await auth();
   const user = await clerkClient.users.getUser(userId!);
   const friendUser = await clerkClient.users.getUser(params.userId);
 
-  const chat = (await db.select().from(chats).where(
-    or(
-      and(
-        eq(chats.user1_id, userId!),
-        eq(chats.user2_id, params.userId)
-      ),
-      and(
-        eq(chats.user1_id, params.userId),
-        eq(chats.user2_id, userId!)
+  const chat = await db
+    .select()
+    .from(chats)
+    .where(
+      or(
+        and(eq(chats.user1_id, userId!), eq(chats.user2_id, params.userId)),
+        and(eq(chats.user1_id, params.userId), eq(chats.user2_id, userId!))
       )
-    ))
-  )
-  const chatId = chat[0].id
-  const messages = await db.select().from(message).where(eq(message.chatId, chatId))
+    );
+  const chatId = chat[0].id;
+  const messages = await db
+    .select()
+    .from(message)
+    .where(eq(message.chatId, chatId));
 
   return (
-    <div className="w-screen h-screen justify-start flex flex-row">
+    <div className="w-screen h-screen flex flex-row justify-center">
       <ChatFriendList />
       <Messages
-        messageList={messages} 
+        messageList={messages}
         chatId={chatId}
-        userId={userId!} 
-        userImg={user.imageUrl} 
-        friendId={params.userId} 
-        friendName={friendUser.fullName!} 
+        userId={userId!}
+        userImg={user.imageUrl}
+        friendId={params.userId}
+        friendName={friendUser.fullName!}
         friendImg={friendUser.imageUrl}
       />
     </div>
   );
-};
+}

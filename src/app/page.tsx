@@ -20,21 +20,21 @@ import { clerkClient } from "@clerk/nextjs/server";
 import FriendList from "@/components/FriendList";
 import ProfileOverview from "@/components/ProfileOverview";
 import TopBar from "@/components/TopBar";
+import { Inter } from "next/font/google";
 
 export default function Home() {
+  // If loading a variable font, you don't need to specify the font weight
+
   return (
     <>
       <SignedIn>
-        <main className="h-auto overflow-x-hidden">
-          <TopBar/>
+        <main className="h-auto overflow-x-hidden font-mono">
+          <TopBar />
 
-          <div className="flex flex-row items-start h-screen w-screen overflow-hidden">
-            <ProfileOverview/>
+          <div className="flex flex-row max-sm:flex-col  items-start h-screen w-screen overflow-hidden">
+            <ProfileOverview />
             <Feed />
-            
-            <div className="flex flex-col justify-center size-full basis-1/3">
-              <FriendList />
-            </div>
+            <FriendList />
           </div>
         </main>
       </SignedIn>

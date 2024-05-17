@@ -8,14 +8,14 @@ import { friends } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 
 const ChatFriendList = async () => {
-  const userId = await auth().userId
+  const userId = await auth().userId;
   const friendList = await db
     .select()
     .from(friends)
     .where(and(eq(friends.userId, userId!), eq(friends.accepted, true)));
-  
+
   return (
-    <div className="flex flex-col text-white bg-foreground border-opacity-50 basis-1/3 border-r-[1px] border-y-[1px] border-secondary w-full max-w-[24rem]">
+    <div className="flex flex-col max-md:hidden text-white bg-foreground border-opacity-50 basis-1/3 border-r-[1px] border-y-[1px] border-secondary w-full max-w-[24rem]">
       <Link
         href="/"
         className="flex flex-row gap-[2px] items-center text-2xl h-[5.8rem] w-full p-3 border-b-2 border-secondary border-opacity-50"
@@ -23,7 +23,7 @@ const ChatFriendList = async () => {
         <Home className="size-8" /> Home
       </Link>
 
-      <ul className="flex flex-col w-full h-auto overflow-y-scroll overflow-x-hidden no-scrollbar">
+      <ul className="flex flex-col w-fullm  h-auto overflow-y-scroll overflow-x-hidden no-scrollbar">
         {friendList.map((friend) => (
           <li>
             <FriendListItem friendId={friend.friendId} />
