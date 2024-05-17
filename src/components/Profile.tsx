@@ -57,7 +57,7 @@ const Profile = async ({userId}: Props) => {
           </div>
         ) :
         (receivedFriendReq.length > 0) ? (
-          <AddFriend text={"Acceept Friend Request"} userId={currentUserId!} friendId={userId}/>
+          <AddFriend text={"Accept Friend Request"} userId={currentUserId!} friendId={userId}/>
         ) :
         (
           <AddFriend text={"Add as Friend"} userId={currentUserId!} friendId={userId}/>

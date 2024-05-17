@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const postTypeEnum = pgEnum('post_type_enum', ['text', 'image', 'video'])
 
@@ -19,4 +19,18 @@ export const friends = pgTable("friends", {
     id: serial("id").primaryKey(),
     userId: varchar('user_id', {length:256}).notNull(),
     friendId: varchar('friend_id', {length:256}).notNull(),
+    accepted: boolean('accepted').default(false)
+})
+
+export const chats = pgTable("chats", {
+    id: serial("id").primaryKey(),
+    user1_id: varchar('user_id', {length:256}).notNull(),
+    user2_id: varchar('user_id', {length:256}).notNull()
+})
+
+export const message = pgTable("message", {
+    id: serial("id").primaryKey(),
+    chatId: integer('chat_id').references(()=>chats.id).notNull(),
+    textMessage: text('text_message').notNull(),
+    author: varchar('user_id', {length:256}).notNull()
 })

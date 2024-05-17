@@ -5,10 +5,14 @@ import Image from "next/image";
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import { SignOutButton } from '@clerk/nextjs';
 import { Button } from './ui/button';
+import { db } from '@/lib/db';
+import { friends } from '@/lib/db/schema';
+import { and, eq } from 'drizzle-orm';
 
 const ProfileOverview = async () => {
     const userId = await auth().userId
     const user = await clerkClient.users.getUser(userId!)
+    const friendCount = (await db.select().from(friends).where(and(eq(friends.userId, userId!), eq(friends.accepted, true)))).length
     
     return (
         <div className="flex flex-col justify-center size-full basis-1/3">
@@ -31,14 +35,11 @@ const ProfileOverview = async () => {
                     </Button>
                 </SignOutButton>
                 <ul className="text-white w-full divide-y divide-slate-700 space-y-[10px] mt-8">
-                    <li className="flex flex-row gap-1 py-2">
-                    <UserRound className="size-5" />
-                    <p className="hover:text-accent hover:cursor-pointer">
-                        Friends
-                    </p>
+                    <li className="flex flex-row gap-1 py-2 items-center">
+                        <UserRound className="size-5" />{`${friendCount} Friends`}
                     </li>
-                    <li className="flex flex-row gap-1 py-2">
-                    <Heart className="size-5" />
+                    <li className="flex flex-row gap-1 py-2 items-center">
+                        <Heart className="size-5" />
                     <p>Likes</p>
                     </li>
                         <li className="flex flex-col gap-1 py-2">

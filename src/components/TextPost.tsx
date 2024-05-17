@@ -18,8 +18,6 @@ interface TextPostPrps {
   title:string;
   description: string;
   likes: number;
-  friends: number;
-  comments: number;
 }
 
 const TextPost = ({
@@ -31,8 +29,6 @@ const TextPost = ({
   title,
   description,
   likes,
-  friends,
-  comments,
 }: TextPostPrps) => {
   const router = useRouter();
   const [loadingDelete, setLoadingDelete] = useState(false)
@@ -56,10 +52,6 @@ const TextPost = ({
         <Link href={`/users/${userId}`}>
           <Image width={60} height={60} alt="" src={userImg} className='rounded-full'/>
           <h6 className="flex text-white text-opacity-65 mt-1">@{username}</h6>
-          <div className="flex flex-row p-1 gap-1">
-            <UsersRound className="size-4 text-secondary" />
-            <p className="text-white text-xs text-opacity-30">{friends}</p>
-          </div>
         </Link>
       </div>
       <div className="flex flex-col w-full">
@@ -70,11 +62,6 @@ const TextPost = ({
             <Heart className="text-secondary hover:text-accent hover:cursor-pointer  size-4" />
             <div className="text-white text-xs text-opacity-30">{likes}</div>
           </div>
-          <div className="inline-flex gap-1 ">
-            <MessageSquareMore className="text-secondary hover:text-accent hover:cursor-pointer size-4" />
-            <div className="text-white text-xs text-opacity-30">{comments}</div>
-          </div>
-          <Forward className="text-secondary hover:text-accent hover:cursor-pointer size-4" />
         </div>
       </div>
       { currentUserId === userId &&

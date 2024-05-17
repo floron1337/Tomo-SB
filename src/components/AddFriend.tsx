@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from './ui/button'
 import axios from 'axios'
 import { UserRoundPlus } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 type Props = {
     userId: string,
@@ -11,11 +12,13 @@ type Props = {
 }
 
 const AddFriend = ({ userId, friendId, text } : Props) => {
+    const router = useRouter();
     async function addFriend() {
         const response = await axios.post('/api/add-friend', {
           userId,
           friendId
         })
+        router.refresh();
     }
     
     return (

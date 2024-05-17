@@ -24,8 +24,6 @@ const UserPost = async ({post} : Props) => {
                 title={post.title}
                 description={post.description}
                 likes={post.likes}
-                friends={0}
-                comments={0}
             />
             }
             {
@@ -39,8 +37,6 @@ const UserPost = async ({post} : Props) => {
                 title={post.title}
                 description={post.description}
                 likes={post.likes}
-                friends={0}
-                comments={0}
                 imageUrl={post.fileUrl}
             />
             }
