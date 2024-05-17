@@ -35,8 +35,8 @@ const TopBar = async () => {
       <div className="flex flex-row border-t-[2px] border-secondary border-opacity-20 pt-2 md:hidden">
         <User className="size-auto text-white ml-3"></User>
         <ul className="flex flex-row gap-1  w-full h-auto max-md:overflow-x-scroll  no-scrollbar">
-          {friendList.map((friend) => (
-            <li className="size-[3rem]">
+          {friendList.map((friend, index) => (
+            <li className="size-[3rem]" key={index}>
               <FriendListItem friendId={friend.friendId} />
             </li>
           ))}
