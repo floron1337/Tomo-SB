@@ -64,10 +64,10 @@ const Profile = async ({userId}: Props) => {
         )
         }
         
-        <h1 className='mt-5 text-4xl font-bold'>User's Posts</h1>
+        <h1 className='mt-5 text-4xl font-bold'>User&apos;s Posts</h1>
         <div className="flex flex-col gap-8 justify-center items-center pt-5 h-auto w-full bg-background">
-          {_posts.map((post) => (
-            <UserPost post={post} />
+          {_posts.map((post, index) => (
+            <UserPost post={post}  key={index}/>
           ))}
       </div>
       </div>

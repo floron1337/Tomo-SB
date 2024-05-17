@@ -98,7 +98,6 @@ const Messages = ({chatId, userId, userImg, friendId, friendImg, friendName, mes
                 }
             </div>
             <div className="flex flex-row h-auto pt-4 border-t-[1px] border-secondary border-opacity-50 w-full">
-                form
                 <Input
                 className="bg-background self-end ml-auto mr-1 border-[0px] text-white w-3/4"
                 type="text"
