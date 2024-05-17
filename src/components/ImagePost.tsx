@@ -65,8 +65,8 @@ const ImagePost = ({
       </div>
       <Image
         src={imageUrl}
-        width={200}
-        height={160}
+        width={640}
+        height={360}
         alt="Picture of the author"
         className="flex p-2 items-center"
       />

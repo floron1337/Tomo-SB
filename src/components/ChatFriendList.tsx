@@ -23,9 +23,9 @@ const ChatFriendList = async () => {
         <Home className="size-8" /> Home
       </Link>
 
-      <ul className="flex flex-col w-fullm  h-auto overflow-y-scroll overflow-x-hidden no-scrollbar">
-        {friendList.map((friend) => (
-          <li>
+      <ul className="flex flex-col w-full h-auto overflow-y-scroll overflow-x-hidden no-scrollbar">
+        {friendList.map((friend, index) => (
+          <li key={index}>
             <FriendListItem friendId={friend.friendId} />
           </li>
         ))}

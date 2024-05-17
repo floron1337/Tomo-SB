@@ -11,7 +11,7 @@ const page = () => {
         <div className='h-auto flex flex-col items-center'>
             <TopBar/>
             <div className='mt-20 overflow-x-hidden flex flex-col items-center'>
-                <UserProfile/>
+                <UserProfile />
                 <Button
                     className="w-1/4 ml-auto mr-auto bg-secondary hover:bg-accent mt-4 flex flex-row gap-2"
                     asChild
