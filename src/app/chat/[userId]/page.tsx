@@ -1,12 +1,13 @@
 "use client";
 import FriendList from "@/components/FriendList";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import Image from "next/image";
 import ChatFriendList from "@/components/ChatFriendList";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { set, string } from "zod";
+import TextMessage from "@/components/TextMessage";
 type Props = {
   username: string;
   userImg: string;
@@ -27,6 +28,12 @@ const page = ({ username, userImg }: Props) => {
     console.log(e.target.value);
     setInput(e.target.value);
   };
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      console.log("Enter key pressed"); // Debug log
+      addString(input);
+    }
+  };
   return (
     <div className="w-screen h-screen justify-start flex flex-row">
       <ChatFriendList />
@@ -37,16 +44,14 @@ const page = ({ username, userImg }: Props) => {
             Nume
           </h1>
         </div>
-        <div className="flex flex-row bg-red-600 w-full h-full">
-          <div className="flex basis-1/2 bg-white w-auto h-auto">a</div>
-          <div className="flex flex-col justify-end basis-1/2 bg-black w-auto h-auto text-white">
-            <h1>Chat</h1>
-            <ul>
-              {strings.map((string, index) => (
-                <li key={index}>{string}</li>
-              ))}
-            </ul>
-          </div>
+        <div className="flex flex-col items-end justify-end content-end py-4 pr-1 gap-2  w-full h-full">
+          {strings.map((string, index) => (
+            <TextMessage
+              key={index}
+              message={string}
+              authorImg={"/download 1.png"}
+            />
+          ))}
         </div>
         <div className="flex flex-row h-auto pt-4 border-t-[1px] border-secondary border-opacity-50 w-full">
           form
@@ -55,6 +60,7 @@ const page = ({ username, userImg }: Props) => {
             type="text"
             value={input}
             onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
           />
           <Button
             className=" size-10 bg-secondary self-end mr-auto rounded-full hover:bg-accent"
