@@ -2,8 +2,9 @@ import React from "react";
 import FriendListItem from "./FriendListItem";
 import { UsersRound } from "lucide-react";
 import Link from "next/link";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 
-const FriendList = () => {
+const FriendList = async () => {
   return (
     <div className="flex flex-col items-center m-auto w-3/4 h-3/4 bg-foreground p-1 rounded-xl">
       <div className="flex flex-row w-full h-auto justify-between ">
