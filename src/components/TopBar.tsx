@@ -15,7 +15,7 @@ const TopBar = async () => {
     .select()
     .from(friends)
     .where(and(eq(friends.userId, userId!), eq(friends.accepted, true)));
-
+  
   return (
     <div className="position absolute w-screen h-auto flex-col bg-[#08171b]">
       <div className=" flex flex-row justify-between  text-white font-bold p-2">

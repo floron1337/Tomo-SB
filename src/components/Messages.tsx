@@ -68,6 +68,8 @@ const Messages = ({
         author,
       });
     }
+
+    setInput("")
   }
 
   useEffect(() => {
