@@ -6,11 +6,11 @@ import Link from "next/link";
 import { clerkClient } from "@clerk/nextjs/server";
 
 type Props = {
-  friendId: string
+  friendId: string;
 };
 
 const FriendListItem = async ({ friendId }: Props) => {
-  const friendUser = await clerkClient.users.getUser(friendId)
+  const friendUser = await clerkClient.users.getUser(friendId);
   return (
     <div className="mb-1 flex flex-row justify-between gap-1 w-full border-t-[1px] border-secondary border-opacity-30 p-2 text-white">
       <div className="w-full gap-2  inline-flex">
@@ -21,10 +21,12 @@ const FriendListItem = async ({ friendId }: Props) => {
           src={friendUser.imageUrl}
           className="rounded-full self-start flex"
         />
-        <h4 className="flex text-white text-xl  my-auto">{friendUser.fullName}</h4>
+        <h4 className="flex text-white text-xl  my-auto">
+          {friendUser.fullName}
+        </h4>
       </div>
       <Link
-        href={"/chat/user_2gVzlNBVjgwPHvH8X07vrRzhivx"}
+        href={`/chat/${friendUser.id}`}
         className="flex  size-5 justify-center  my-auto"
       >
         <Send />
